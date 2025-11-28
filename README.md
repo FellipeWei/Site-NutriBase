@@ -1,6 +1,4 @@
-﻿# Site-NutriBase
-
-# Site-NutriBase
+# Site-NutriBase FLASK
 
 ## 💡 Sobre o Projeto
 
@@ -25,3 +23,4 @@ A estrutura front-end foi implementada utilizando **HTML** para a marcação e *
 
 * **Framework Principal:** **FLASK**
 * **Front-end:** HTML e CSS
+

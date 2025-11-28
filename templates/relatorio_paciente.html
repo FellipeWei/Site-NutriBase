@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card report-card">
+    
+    <h2 class="section-title">Relatório Detalhado - Avaliação de {{ paciente.nome }}</h2>
+    <p class="text-muted text-end">Data da Avaliação: {{ avaliacao.data.strftime('%d/%m/%Y %H:%M') }}</p>
+    
+    <div class="row g-4 mt-3">
+        
+        <!-- COLUNA DE MÉTRICAS CHAVE (IMC, RCE, RCQ) -->
+        <div class="col-lg-6">
+            <div class="card p-4 h-100 summary-block">
+                <h4 style="color: var(--primary-blue);">Métricas de Risco Metabólico</h4>
+                <hr>
+
+                <div class="metric-item">
+                    <h5>IMC (Índice de Massa Corporal)</h5>
+                    <p class="result-value">{{ avaliacao.imc }}</p>
+                    <p class="result-classification">Risco de Comorbidade: <strong>{{ avaliacao.classificacao_imc_risco }}</strong></p>
+                </div>
+                
+                <div class="metric-item mt-4">
+                    <h5>Relação Cintura/Estatura (RCE)</h5>
+                    <p class="result-value">{{ avaliacao.rce }}</p>
+                    <p class="result-classification">Resultado: <strong>{{ avaliacao.classificacao_rce }}</strong></p>
+                </div>
+
+                <div class="metric-item mt-4">
+                    <h5>Relação Cintura/Quadril (RCQ)</h5>
+                    <!-- 🔑 NOTA: RCQ precisa do sexo do paciente para a classificação -->
+                    <p class="result-value">{{ avaliacao.rcq }}</p>
+                    <p class="result-classification">Resultado: 
+                        <strong>{{ avaliacao.classificacao_rcq(paciente.sexo) }}</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- COLUNA DE DOBRAS E COMPOSIÇÃO (Placeholder para Futuro %GC) -->
+        <div class="col-lg-6">
+             <div class="card p-4 h-100 composition-block">
+                <h4 style="color: var(--primary-blue);">Avaliação da Composição Corporal</h4>
+                <hr>
+                
+                <p>Este sistema está pronto para calcular a **%Massa Gorda** e **%Massa Magra**, mas o cálculo complexo (%GC) ainda precisa de uma fórmula de regressão (ex: Faulkner, 7 Dobras, etc.).</p>
+                
+                <div class="metric-item mt-4">
+                    <h5>Índice de Distribuição de Gordura (DCP/DCC)</h5>
+                    <p class="result-value">{{ avaliacao.idc_dcp_dcc }}</p>
+                    <p class="result-classification">Distribuição: <strong>{{ avaliacao.classificacao_idc() }}</strong></p>
+                </div>
+
+                <h5 class="mt-4">Dobras Registradas (mm)</h5>
+                <p>Tricipital + Bicipital (Periféricas): {{ avaliacao.soma_dobras_perifericas }}</p>
+                <p>Subescapular + Supra-ilíaca (Centrais): {{ avaliacao.soma_dobras_centrais }}</p>
+             </div>
+        </div>
+        
+    </div>
+
+    <!-- OBSERVAÇÕES -->
+    <div class="card mt-4">
+        <h4 style="color: var(--primary-blue);">Observações da Avaliação</h4>
+        <p>{{ avaliacao.observacoes or 'Nenhuma observação registrada.' }}</p>
+    </div>
+
+    <p class="mt-4">
+        <a class="btn btn-secondary" href="{{ url_for('avaliacoes.listar_avaliacoes', paciente_id=paciente.id) }}">Voltar ao Histórico</a>
+        <button onclick="window.print()" class="btn">Imprimir Relatório</button>
+    </p>
+</div>
+
+<style>
+    /* Estilos específicos para o relatório */
+    .report-card {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 50px;
+    }
+    .result-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-blue);
+        margin-bottom: 5px;
+    }
+    /* Oculta botões e navegação ao imprimir */
+    @media print {
+        .topbar, .footer, .btn-secondary, button {
+            display: none !important;
+        }
+        .report-card {
+            box-shadow: none;
+            border: none;
+            margin: 0;
+            padding: 0;
+            max-width: none;
+        }
+    }
+</style>
+{% endblock %}

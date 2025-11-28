@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card">
+        <h2>Pacientes</h2>
+        <p><a class="btn" href="{{ url_for('pacientes.novo_paciente') }}">Adicionar Novo Paciente</a></p>
+        {% if pacientes %}
+            <table class="table">
+                <thead><tr><th>Nome</th><th>Contato</th><th>Opções</th></tr></thead>
+                <tbody>
+                {% for p in pacientes %}
+                    <tr>
+                        <td>{{ p.nome }}</td>
+                        <td>{{ p.contato or '-' }}</td>
+                        <td>
+                            <a href="{{ url_for('pacientes.editar_paciente', id=p.id) }}">Editar</a> |
+                            <form method="post" action="{{ url_for('pacientes.excluir_paciente', id=p.id) }}" style="display:inline" onsubmit="return confirm('Excluir paciente?')">
+                                <button class="link" type="submit">Excluir</button>
+                            </form> |
+                            <a href="{{ url_for('avaliacoes.listar_avaliacoes', paciente_id=p.id) }}">Avaliações</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhum paciente cadastrado.</p>
+        {% endif %}
+    </div>
+{% endblock %}

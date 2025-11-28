@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card text-center dashboard-content"> 
+        
+        <h1 class="greeting-title">Olá, {{ session.get('user_name') }}</h1>
+        
+        <p class="stats-text">Total de pacientes cadastrados: <strong>{{ total_pacientes }}</strong></p>
+        
+        <p>
+            <a class="btn" href="{{ url_for('pacientes.listar_pacientes') }}">Ver Pacientes</a>
+        </p>
+        
+    </div>
+{% endblock %}

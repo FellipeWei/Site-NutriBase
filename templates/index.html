@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- 1. SEÇÃO PRINCIPAL (HERO) - Destaca a função do NutriBase -->
+    <section class="hero">
+        <!-- Textos maiores e layout Nutrium-like -->
+        <h1 class="hero-title">NutriBase: Nutrição Simplificada</h1>
+        
+        <p class="hero-subtitle">
+            A ferramenta essencial que revoluciona o gerenciamento de pacientes e cálculos na prática de nutricionistas.
+        </p>
+
+        <p class="hero-actions">
+            <a class="btn" href="{{ url_for('usuarios.register_page') }}">Comece Agora</a>
+            <a class="btn btn-secondary" href="{{ url_for('usuarios.login_page') }}">Já Sou Cliente</a>
+        </p>
+        
+    </section>
+
+    <!-- 2. SEÇÃO DE INFORMAÇÕES E RECURSOS -->
+    <section class="info-section container">
+        <div class="feature-grid">
+            
+            <div class="card feature-card feature-text">
+                <h2>Função Principal</h2>
+                <p>
+                    O NutriBase foi desenvolvido com o objetivo claro de **facilitar a vida dos nutricionistas**. Nossa plataforma consolida o gerenciamento de dados, permitindo a inserção e organização segura de informações de pacientes em um único local, minimizando o tempo gasto com burocracia e maximizando o foco na saúde.
+                </p>
+                <p>
+                    Além do cadastro completo de pacientes, o sistema auxilia diretamente com **contas e métricas nutricionais essenciais**, tornando as avaliações mais rápidas e precisas.
+                </p>
+            </div>
+
+            <div class="card feature-card feature-image">
+                <div class="image-placeholder">
+                    <!-- Placeholder para a foto de demonstração -->
+                    <img src="static/demonstracaosite.PNG" alt="Demonstração da interface do NutriBase" class="responsive-img system-demo-img">
+                </div>
+                <p class="img-caption">Interface limpa e profissional, e bem simples de compreender!!.</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 3. SEÇÃO DE CRÉDITOS E DESENVOLVEDORES (Foto Única na Lateral Direita) -->
+    <section class="developers-section container card">
+        <h2 class="section-title">Desenvolvedores do Projeto</h2>
+        
+        <div class="developer-info-container">
+            
+            <div class="developer-text-content">
+                <!-- Informações e Créditos -->
+                <div class="dev-info-block">
+                    <h3>Fellipe de Aguiar Gomes</h3>
+                    <p class="course-text">Estudante de **Sistemas de Informação (SI)** na UEMG Carangola.</p>
+                    <p class="role">Responsável pelo desenvolvimento da aplicação e infraestrutura web.</p>
+                </div>
+
+                <div class="dev-info-block">
+                    <h3>Giovanna Lamão Boy Rosa</h3>
+                    <p class="course-text">Estudante de **Nutrição** na UFES Alegre.</p>
+                    <p class="role">Responsável pela validação técnica, requisitos nutricionais e UX do sistema.</p>
+                </div>
+
+                <p class="project-note">
+                    Este projeto foi desenvolvido como parte de um trabalho acadêmico, unindo a tecnologia da Informação e a ciência da Nutrição.
+                </p>
+            </div>
+            
+            <div class="dev-photo-block">
+                <!-- 🔑 CORREÇÃO FINAL: Usando 'devs_team.jpg'. Se falhar, verifique se a extensão é .jpeg, .png, etc. -->
+                <img src="{{ url_for('static', filename='devs_team.jpg') }}" 
+                     alt="Foto dos Desenvolvedores" 
+                     class="dev-team-photo"
+                     onerror="this.onerror=null; this.src='https://placehold.co/400x500/00968e/ffffff?text=ERRO:+FOTO+NÃO+ENCONTRADA';">
+            </div>
+        </div>
+    </section>
+{% endblock %}

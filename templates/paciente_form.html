@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card">
+        <h2>{{ paciente and 'Editar Paciente' or 'Novo Paciente' }}</h2>
+        <form method="post">
+            <label>Nome</label>
+            <input type="text" name="nome" value="{{ paciente.nome if paciente else '' }}" required>
+            <label>Data de Nascimento</label>
+            <input type="date" name="data_nascimento" value="{{ paciente.data_nascimento if paciente else '' }}">
+            <label>Sexo</label>
+            <select name="sexo">
+                <option value="">--</option>
+                <option value="Masculino" {% if paciente and paciente.sexo=='Masculino' %}selected{% endif %}>Masculino</option>
+                <option value="Feminino" {% if paciente and paciente.sexo=='Feminino' %}selected{% endif %}>Feminino</option>
+            </select>
+            <label>Contato</label>
+            <input type="text" name="contato" value="{{ paciente.contato if paciente else '' }}">
+            <label>Objetivo</label>
+            <input type="text" name="objetivo" value="{{ paciente.objetivo if paciente else '' }}">
+            <label>Histórico</label>
+            <textarea name="historico">{{ paciente.historico if paciente else '' }}</textarea>
+            <button class="btn" type="submit">Salvar</button>
+        </form>
+    </div>
+{% endblock %}
